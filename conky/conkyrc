@@ -1,0 +1,62 @@
+# Conky settings #
+background no
+update_interval 1
+
+cpu_avg_samples 2
+net_avg_samples 2
+
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+#imlib_cache_size 0
+
+# Window specifications #
+
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+
+minimum_size 250 350
+
+alignment tr
+gap_x 0
+gap_y 30
+
+# Graphics settings #
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings #
+use_xft yes
+xftfont DroidSansMono:size=12
+xftalpha 0.5
+
+uppercase no
+
+temperature_unit celsius
+
+default_color FFFFFF
+
+# Lua Load  #
+lua_load ~/Documents/conky/rings.lua
+lua_draw_hook_pre rings
+
+TEXT
+${voffset 42}${color BD45E0}${goto 35}CPU ${goto 145}RAM
+${color E2EDFF}${goto 5}${lua_parse pad ${cpu cpu0}} % ${goto 115}${lua_parse pad ${memperc}} %
+${color E2EDFF}${goto 5}${execi 10 sensors | grep 'id 0' | cut -c18-19}°C ${goto 115}8 GB
+${voffset 37}${color BD45E0}${goto 40}C0 ${goto 150}C1
+${color E2EDFF}${goto 5}${lua_parse pad ${cpu cpu1}} % ${goto 115}${lua_parse pad ${cpu cpu2}} %
+${color E2EDFF}${goto 5}${execi 10 sensors | grep 'Core 0' | cut -c18-19}°C ${goto 115}${execi 10 sensors | grep 'Core 1' | cut -c18-19}°C
+${voffset 37}${color BD45E0}${goto 40}C2 ${goto 150}C3
+${color E2EDFF}${goto 5}${lua_parse pad ${cpu cpu3}} % ${goto 115}${lua_parse pad ${cpu cpu4}} %
+${color E2EDFF}${goto 5}${execi 10 sensors | grep 'Core 2' | cut -c18-19}°C ${goto 115}${execi 10 sensors | grep 'Core 3' | cut -c18-19}°C
